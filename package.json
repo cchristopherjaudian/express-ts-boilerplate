@@ -1,0 +1,31 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "description": "Boiler for typescript nodejs express",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon src/index.ts"
+  },
+  "keywords": [],
+  "author": "Calil Christopher Jaudian - Software Engineer",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/eslint": "^8.40.1",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.3.0",
+    "@types/prettier": "^2.7.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
+    "eslint": "^8.42.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}
