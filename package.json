@@ -4,7 +4,11 @@
   "description": "Boiler for typescript nodejs express",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon src/index.ts"
+    "dev": "npx nodemon src/index.ts",
+    "migration:make": "npx knex migrate:make",
+    "seed:make": "npx knex seed:make",
+    "db:migrate": "npx knex migrate:latest",
+    "db:rollback": "npx knex migrate:rollback"
   },
   "keywords": [],
   "author": "Calil Christopher Jaudian - Software Engineer",
@@ -12,7 +16,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "knex": "^2.4.2",
+    "objection": "^3.0.1",
+    "pg": "^8.11.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
