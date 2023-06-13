@@ -1,12 +1,37 @@
+import httpStatus from 'http-status';
 import { catchAsync } from '../lib/catch-async';
 import { AuthorModel } from '../models';
 import { AuthorService } from '../services';
-import { TAuthorPayload } from '../services/author-service';
+import { TAuthorPayload, TPartialAuthorParams } from '../services/author-service';
 
-const authorInstance = new AuthorService(AuthorModel);
+class AuthorController extends AuthorService {
+   private static instance: AuthorController;
 
-const createAuthor = catchAsync(async (req, res) => {
-   const newAuthor = await authorInstance.createAuthor(req.body as TAuthorPayload);
-});
+   private constructor() {
+      super(AuthorModel);
+   }
 
-export { createAuthor };
+   public static getInstance(): AuthorController {
+      if (!AuthorController.instance) {
+         AuthorController.instance = new AuthorController();
+      }
+      return AuthorController.instance;
+   }
+
+   public create = catchAsync(async (req, res) => {
+      const newAuthor = await this.createAuthor(req.body as TAuthorPayload);
+      res.status(httpStatus.OK).json(newAuthor);
+   });
+
+   public findOne = catchAsync(async (req, res) => {
+      const author = await this.findAuthor(req.path as TPartialAuthorParams);
+      res.status(httpStatus.OK).json(author);
+   });
+
+   public authorList = catchAsync(async (req, res) => {
+      const authors = await this.findAll();
+      res.status(httpStatus.OK).json(authors);
+   });
+}
+
+export default AuthorController;

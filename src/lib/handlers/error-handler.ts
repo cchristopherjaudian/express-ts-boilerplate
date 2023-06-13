@@ -24,6 +24,7 @@ class ErrorHandler {
    };
 
    public static errorResponse = (error: TNormalizedError, req: Request, res: Response) => {
+      console.log('zzzzzzzzzzzzzzzzz');
       const status = error.status || httpStatus.INTERNAL_SERVER_ERROR;
       const statusCode = error.statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
       res.status(status);

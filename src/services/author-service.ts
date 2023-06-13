@@ -11,7 +11,10 @@ export type TAuthorPayload = {
    contactNumber: string;
    emailAddress?: string;
 };
-export type TPartialAuthor = Partial<Pick<TAuthorPayload, 'emailAddress' | 'contactNumber' | 'authorUniqueReference'>>;
+
+export type TPartialAuthorParams = Partial<
+   Pick<TAuthorPayload, 'emailAddress' | 'contactNumber' | 'authorUniqueReference'>
+>;
 
 class AuthorService {
    private _model;
@@ -20,7 +23,7 @@ class AuthorService {
       this._model = model;
    }
 
-   public async createAuthor(payload: TAuthorPayload): Promise<AuthorModel | unknown> {
+   protected async createAuthor(payload: TAuthorPayload): Promise<AuthorModel | unknown> {
       try {
          const hasData = await this._model
             .query()
@@ -48,7 +51,7 @@ class AuthorService {
       }
    }
 
-   public async findAuthor(query: TPartialAuthor): Promise<AuthorModel | unknown> {
+   protected async findAuthor(query: TPartialAuthorParams): Promise<AuthorModel | unknown> {
       try {
          const newAuthor = await this._model.query().findOne({ ...query });
          if (!newAuthor) {
@@ -60,7 +63,7 @@ class AuthorService {
       }
    }
 
-   public async findAll(): Promise<AuthorModel[]> {
+   protected async findAll(): Promise<AuthorModel[]> {
       try {
          const newAuthor = await this._model.query();
          return newAuthor;

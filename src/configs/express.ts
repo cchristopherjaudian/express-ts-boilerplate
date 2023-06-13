@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import express, { NextFunction, Request, Response, RequestHandler, Router } from 'express';
+import express, { NextFunction, Request, Response, Router } from 'express';
 import cors from 'cors';
 import { TNormalizedError } from '../lib/handlers/error-handler';
 
@@ -7,14 +7,16 @@ dotenv.config();
 
 type TFuncNotFound = (req: Request, res: Response, next: NextFunction) => void;
 type TFuncErrorHandler = (error: TNormalizedError, req: Request, res: Response, next: NextFunction) => void;
-type TaddErrorHandler = TFuncNotFound | TFuncErrorHandler;
+type TaddHandler = TFuncNotFound | TFuncErrorHandler;
 
 class ExpressConfig {
    private static instance: ExpressConfig;
-   public _app;
+   private _app;
+   public router: Router;
 
    private constructor() {
       this._app = express();
+      this.router = express.Router();
    }
 
    public static getInstance(): ExpressConfig {
@@ -40,7 +42,7 @@ class ExpressConfig {
       return this;
    }
 
-   public addErrorHandler(fn: TaddErrorHandler): this {
+   public addHandler(fn: TaddHandler): this {
       this._app.use(fn);
       return this;
    }

@@ -1,7 +1,7 @@
 import { Model } from 'objection';
-import { Knex } from 'knex';
+import knex from 'knex';
 import knexfile from '../../../knexfile';
 
-Model.knex(knexfile.development as Knex<any, any[]>);
+Model.knex(knex(knexfile.development));
 
 export default Model;
