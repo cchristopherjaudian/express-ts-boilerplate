@@ -9,6 +9,7 @@ export type TResponseBody = {
 class ResponseHandler {
    public static responseHandler(req: Request, res: Response, next: NextFunction) {
       res.on('finish', () => {
+         console.log('finishhhhhh', res);
          return res.json();
       });
       next();

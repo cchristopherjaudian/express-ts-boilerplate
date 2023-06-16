@@ -29,6 +29,7 @@ class AuthorController extends AuthorService {
    });
 
    public authorList = catchAsync(async (req, res) => {
+      console.log('xxxxxxxxxxxxxxxxxxxxx');
       const authors = await this.findAll();
       res.status(httpStatus.OK).json(authors);
    });

@@ -28,15 +28,17 @@ class AuthorService {
          const hasData = await this._model
             .query()
             .where((query) => {
+               let ref;
                if (payload?.emailAddress) {
-                  return query.where('emailAddress', payload.emailAddress);
+                  ref = query.where('emailAddress', payload.emailAddress);
                }
                if (payload?.contactNumber) {
-                  return query.where('contactNumber', payload.contactNumber);
+                  ref = query.orWhere('contactNumber', payload.contactNumber);
                }
                if (payload?.authorUniqueReference) {
-                  return query.where('authorUniqueReference', payload.authorUniqueReference);
+                  ref = query.orWhere('authorUniqueReference', payload.authorUniqueReference);
                }
+               return ref;
             })
             .first();
 
@@ -44,7 +46,7 @@ class AuthorService {
             throw new ResourceConflictError('Author already exists.');
          }
 
-         const newAuthor = await this._model.query().insertAndFetch(payload);
+         const newAuthor = await this._model.query().insert(payload);
          return newAuthor;
       } catch (error) {
          throw error;
@@ -65,8 +67,8 @@ class AuthorService {
 
    protected async findAll(): Promise<AuthorModel[]> {
       try {
-         const newAuthor = await this._model.query();
-         return newAuthor;
+         const authors = await this._model.query();
+         return authors;
       } catch (error) {
          throw error;
       }

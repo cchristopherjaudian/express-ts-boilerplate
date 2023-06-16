@@ -8,7 +8,7 @@ const expressInstance = ExpressConfig.getInstance();
 expressInstance
    .expressInit()
    .addApiRoute('/v1', AppRoutes)
-   // .addHandler(ResponseHandler.responseHandler)
+   .addHandler(ResponseHandler.responseHandler)
    .addHandler(ErrorHandler.errorResponse)
    .addHandler(ErrorHandler.notFound)
    .startServer();
